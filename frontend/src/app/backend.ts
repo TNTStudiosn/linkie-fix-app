@@ -10,7 +10,7 @@ export const HTTP = axios.create({
 })
 
 export function currentBackendServer(): string {
-    return isTauri() ? localBackendServer : backendServer
+    return localBackendServer
 }
 
 export function reqVersions<T = any>(): Promise<AxiosResponse<T>> {

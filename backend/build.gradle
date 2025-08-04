@@ -1,13 +1,14 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.8.10"
-    id "org.jetbrains.kotlin.plugin.serialization" version "1.8.10"
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "org.jetbrains.kotlin.jvm" version "2.1.20"
+    id "org.jetbrains.kotlin.plugin.serialization" version "2.1.20"
+    id "com.gradleup.shadow" version "8.3.6"
 }
 
 group = "me.shedaniel"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    maven { url = uri("https://maven.aliyun.com/repository/public/") }
     mavenCentral()
     maven { url "https://maven.fabricmc.net" }
     maven {
@@ -18,7 +19,7 @@ repositories {
     }
     maven { url "https://maven.shedaniel.me/" }
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-    maven { url "https://maven.quiltmc.org/repository/release" }
+    maven { url "https://maven.quiltmc.org/repository/release/" }
 }
 
 configurations {
@@ -41,16 +42,20 @@ dependencies {
     implementation("io.ktor:ktor-client-java-jvm:2.2.3")
     implementation("io.ktor:ktor-client-core-jvm:2.2.3")
     implementation("com.github.Baw-Appie:ktor-rate-limit:1cf36fe")
+    implementation("net.fabricmc:fabric-loader:0.16.10")
+    implementation("net.fabricmc:sponge-mixin:0.15.4+mixin.0.8.7")
+    implementation("net.fabricmc:access-widener:2.1.0")
+    implementation("net.fabricmc:tiny-mappings-parser:0.2.2.14")
 }
 
-jar {
-    classifier "raw"
-}
+//jar {
+//    classifier "raw"
+//}
 
 shadowJar {
     configurations = [project.configurations.shadow]
-    classifier null
-    version null
+//    classifier null
+//    version null
     mergeServiceFiles()
     manifest {
         attributes(
@@ -61,9 +66,9 @@ shadowJar {
 
 build.finalizedBy shadowJar
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
+//compileKotlin {
+//    kotlinOptions.jvmTarget = "21"
+//}
 
 def launcher = javaToolchains.launcherFor {
     languageVersion.set(JavaLanguageVersion.of(17))
